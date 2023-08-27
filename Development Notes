@@ -1,0 +1,23 @@
+
+
+----- main.py -----
+Create main.py file and basic files like settings.py and levels.py with imports.
+
+Create a game class which initializes basic setup of the game:
+    - pygame.init()
+    - the screen
+    - clock, and setting tick
+    - run function
+        - loop event for running game, condition for exit
+        - update display
+
+    Execute running of the game
+
+
+---- levels.py -----
+    pygame.display.get_surface() gets from the main surface screen
+    and draws directly on it
+
+
+---- player.py ----
+    First we create 'image' with a placeholder of a sprite filled with a colour.
