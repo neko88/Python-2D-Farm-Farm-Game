@@ -1,4 +1,34 @@
 
+Notes:
+    'Delta Time': time difference between previous frame drawn and the current frame.
+    'FPS': Frame rate which is frequency in which the frame is updated n times per second.
+        - Each iteration of the game loop, a new frame is drawn
+        - Frame rate affects the number of times the loop runs
+
+    CPU differs
+        - Compiles code into machine-level instructions
+    'Clock Speed': Speed of CPU is how many instructions it can execute in a second
+
+Frame Rate Dependency
+    - If speed depends on FPS, it will differ among different hardware
+
+    units per frame = n.units per sec // FPS
+
+Delta Time
+    - Allows code to be independent from FR
+
+    *****
+    Delta Time = Obj speed // FPS
+    Obj speed = Delta Time * FPS
+    Vector2 Move = direction * obj speed * delta time
+    *****
+
+    Thus, object speed is based on Delta Time
+
+    - Delta time useful when moving characters
+    - Independent of frame rate
+        eg. object needs to travel n meters/second in game
+
 
 ----- main.py -----
 Create main.py file and basic files like settings.py and levels.py with imports.
@@ -20,4 +50,8 @@ Create a game class which initializes basic setup of the game:
 
 
 ---- player.py ----
-    First we create 'image' with a placeholder of a sprite filled with a colour.
+    - First we create 'image' with a placeholder of a sprite filled with a colour.
+    - Key movement -> up subtracts 1 because our coordinates start at the top-left corner at (0,0)
+    - Vector2() -> updates to x or y shows as [x, y]
+        - Rect vs. Vector2 : int vs float (dt)
+        - Calculating Vector2 position and then positioning it in the Rect
