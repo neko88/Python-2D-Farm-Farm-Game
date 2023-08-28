@@ -49,14 +49,33 @@ Create a game class which initializes basic setup of the game:
     and draws directly on it
 
 
+
 ---- player.py ----
     - First we create 'image' with a placeholder of a sprite filled with a colour.
     - Key movement -> up subtracts 1 because our coordinates start at the top-left corner at (0,0)
     - Vector2() -> updates to x or y shows as [x, y]
         - Rect vs. Vector2 : int vs float (dt)
         - Calculating Vector2 position and then positioning it in the Rect
-
-
     - Diagonal movement: Pythagorean theorem; speed will differ
         - Normalize the vector so that direction is same magnitude
             u = (x, y) // sqrt(x^2 + y^2)
+
+      ** Dictionary storing { 'folder_name' : ['img1.png', 'img2.png] } access by 'folder_name'
+    - load assets: Create a dictionary for key value pairs.
+    Key: file name, Value: arrau of objects
+    - from os import walk: allows walking in a folder path
+    - loop through path files and for each, make new path where the variable can access the
+    image individually: ../assets/char1/stand.png
+    - use pygame to load the image to a surface, and append it to the surface list
+        - each surface list contains a different animation:
+        eg. for anim up: surface_list[ up/1.png, up/2.png ]
+
+ANIMATIONS:
+    - looping each surface list for a specific object status.
+    - set the frame index back to 0 when it reaches a value => length of the anims in a status
+    - frame index depends on speed and delta time; how fast it will animate
+    - use 'split' function to change the string title of the status
+        - because it returns a list, access by indexing [0]
+
+TOOLS:
+    - need to make timer for object use

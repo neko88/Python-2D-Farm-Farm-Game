@@ -3,7 +3,7 @@ from settings import *
 from level import Level
 from constants import *
 
-SCREEN_WIDTH = 800
+SCREEN_WIDTH = 1080
 SCREEN_HEIGHT = 600
 
 class Game:
