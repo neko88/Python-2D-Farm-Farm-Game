@@ -55,3 +55,8 @@ Create a game class which initializes basic setup of the game:
     - Vector2() -> updates to x or y shows as [x, y]
         - Rect vs. Vector2 : int vs float (dt)
         - Calculating Vector2 position and then positioning it in the Rect
+
+
+    - Diagonal movement: Pythagorean theorem; speed will differ
+        - Normalize the vector so that direction is same magnitude
+            u = (x, y) // sqrt(x^2 + y^2)

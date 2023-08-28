@@ -17,6 +17,13 @@ class Player(pygame.sprite.Sprite):
         self.pos = pygame.math.Vector2()
         self.speed = PLAYER_SPEED
 
+    def import_assets(self):
+        self.animations = { 'up': [], 'down': [], 'left': [], 'right':[],
+                        'right_idle': [], 'left_idle':[], 'up_idle': [], 'down_idle':[],
+                        'right_hoe': [], 'left_hoe': [], 'up_hoe': [], 'down_hoe': [],
+                        'right_axe': [], 'left_axe': [], 'up_axe': [], 'down_axe': [],
+                        'right_water': [], 'left_water': [], 'up_water': [], 'down_water': []}
+
     def input(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_UP]:
@@ -33,9 +40,19 @@ class Player(pygame.sprite.Sprite):
             self.direction.x = 0
 
     def move(self, dt):
-        self.pos += self.direction * self.speed * dt
-        self.rect.center = self.pos
+
+        ## Normalize the vector movement
+        if self.direction.magnitude() > 0:
+            self.direction = self.direction.normalize()
+
+        ## Horizontal movement:
+        self.pos.x += self.direction.x * self.speed * dt
+        self.rect.centerx = self.pos.x
+
+        ## Vertical movement:
+        self.pos.y += self.direction.y * self.speed * dt
+        self.rect.centery = self.pos.y
 
     def update(self, dt):
         self.input()
-        self.move(dt)
+        self.move(dt) ## This is the FR independency!
