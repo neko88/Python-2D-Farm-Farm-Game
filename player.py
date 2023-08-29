@@ -10,7 +10,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__(group)
         self.import_assets()
 
-        self.status = UP
+        self.status = DOWN
         self.frame_index = 0
 
         ## General setup
@@ -41,10 +41,10 @@ class Player(pygame.sprite.Sprite):
     def import_assets(self):
         ## Dictionary storing { 'folder_name' : ['img1.png', 'img2.png] } access by 'folder_name'
         self.animations = {UP: [], DOWN: [], LEFT: [], RIGHT: [],
-                           RIGHT+IDLE: [], LEFT+IDLE: [], UP+IDLE: [], DOWN+IDLE: [],
-                           RIGHT+HOE: [], LEFT+HOE: [], UP+HOE: [], DOWN+HOE: [],
-                           RIGHT+AXE: [], LEFT+AXE: [], UP+AXE: [], DOWN+AXE: [],
-                           RIGHT+WATER: [], LEFT+WATER: [], UP+WATER: [], DOWN+WATER: []}
+                           RIGHT+'_'+IDLE: [], LEFT+'_'+IDLE: [], UP+'_'+IDLE: [], DOWN+'_'+IDLE: [],
+                           RIGHT+'_'+HOE: [], LEFT+'_'+HOE: [], UP+'_'+HOE: [], DOWN+'_'+HOE: [],
+                           RIGHT+'_'+AXE: [], LEFT+'_'+AXE: [], UP+'_'+AXE: [], DOWN+'_'+AXE: [],
+                           RIGHT+'_'+WATER: [], LEFT+'_'+WATER: [], UP+'_'+WATER: [], DOWN+'_'+WATER: []}
 
         for animation in self.animations.keys():
             full_path = CHARACTER_PATH + animation
@@ -77,11 +77,11 @@ class Player(pygame.sprite.Sprite):
             else:
                 self.direction.x = 0
 
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_SPACE] and not self.timers[TOOL_USE_TIMER].active:
             self.tool(USE)
         if keys[pygame.K_q] and not self.timers[TOOL_SWITCH_TIMER].active:
             self.tool(SWITCH)
-        if keys[pygame.K_v]:
+        if keys[pygame.K_v] and not self.timers[SEED_USE_TIMER].active:
             self.seed(USE)
         if keys[pygame.K_e] and not self.timers[SEED_SWITCH_TIMER].active:
             self.seed(SWITCH)
@@ -89,6 +89,7 @@ class Player(pygame.sprite.Sprite):
     def tool(self, action):
         ## Use Tool
         if action == USE:
+            self.timers[TOOL_USE_TIMER].deactivate()
             self.timers[TOOL_USE_TIMER].activate()
             self.direction = pygame.math.Vector2()  # Stops the player movement in a direction
             self.frame_index = 0
@@ -122,11 +123,10 @@ class Player(pygame.sprite.Sprite):
     def get_status(self):
         # if the player is not moving
         if self.direction.magnitude() == 0:
-            # add _idle to the status
-            self.status = self.status.split('_')[0] + IDLE
+            self.status = self.status.split('_')[0] + '_' + IDLE
 
         if self.timers[TOOL_USE_TIMER].active:
-            self.status = self.status.split('_')[0] + self.selected_tool
+            self.status = self.status.split('_')[0] + '_' + self.selected_tool
 
     def use_tool(self):
         var = None

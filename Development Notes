@@ -87,3 +87,5 @@ TOOLS:
 SWITCHING TOOLS:
     - if a key is pressed, and the tool switch timer is not active, switch
         - this is for indexing the tool list, if it is active, it will stop at the item's index
+
+         f'{tool.split("_")[1]}' +

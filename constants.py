@@ -12,14 +12,14 @@ UP = 'up'
 DOWN = 'down'
 LEFT = 'left'
 RIGHT = 'right'
-IDLE = '_idle'
+IDLE = 'idle'
 
 USE = 'use'
 SWITCH = 'switch'
 
-HOE = '_hoe'
-AXE = '_axe'
-WATER = '_water'
+HOE = 'hoe'
+AXE = 'axe'
+WATER = 'water'
 TOOLS = {HOE, AXE, WATER}
 
 TOOL_USE_TIMER = 'tool use timer'
