@@ -79,3 +79,11 @@ ANIMATIONS:
 
 TOOLS:
     - need to make timer for object use
+    **pygame.time.get_ticks() -> gets the time relative to the running app
+    - timer needs an active and deactive
+    - timer needs to be updated in the game loop
+    - after a certain action is done, frame index should be 0 to stop it
+
+SWITCHING TOOLS:
+    - if a key is pressed, and the tool switch timer is not active, switch
+        - this is for indexing the tool list, if it is active, it will stop at the item's index
