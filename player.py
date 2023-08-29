@@ -25,12 +25,17 @@ class Player(pygame.sprite.Sprite):
         ## Timers
         self.timers = {
             TOOL_USE_TIMER : Timer(350, self.use_tool),
-            TOOL_SWITCH_TIMER: Timer(200)
+            TOOL_SWITCH_TIMER: Timer(200),
+            SEED_USE_TIMER : Timer(350, self.use_tool),
+            SEED_SWITCH_TIMER: Timer(200)
         }
 
         ## Tools
         self.tools = Item(TOOLS)
         self.selected_tool = self.tools.get(WATER)
+
+        self.seeds = Item(SEEDS)
+        self.selected_seed = self.seeds.get(CORN)
 
 
     def import_assets(self):
@@ -42,7 +47,7 @@ class Player(pygame.sprite.Sprite):
                            RIGHT+WATER: [], LEFT+WATER: [], UP+WATER: [], DOWN+WATER: []}
 
         for animation in self.animations.keys():
-            full_path = 'assets/s2 - basic player/graphics/character/' + animation
+            full_path = CHARACTER_PATH + animation
             self.animations[animation] = import_folder(full_path)
 
     def animate(self, dt):
@@ -72,16 +77,34 @@ class Player(pygame.sprite.Sprite):
             else:
                 self.direction.x = 0
 
-            ## Use Tool
-            if keys[pygame.K_SPACE]:
-                self.timers[TOOL_USE_TIMER].activate()
-                self.direction = pygame.math.Vector2()      # Stops the player movement in a direction
-                self.frame_index = 0
+        if keys[pygame.K_SPACE]:
+            self.tool(USE)
+        if keys[pygame.K_q] and not self.timers[TOOL_SWITCH_TIMER].active:
+            self.tool(SWITCH)
+        if keys[pygame.K_v]:
+            self.seed(USE)
+        if keys[pygame.K_e] and not self.timers[SEED_SWITCH_TIMER].active:
+            self.seed(SWITCH)
 
-            ## Switch Tool
-            if keys[pygame.K_m] and not self.timers[TOOL_SWITCH_TIMER].active:
-                self.timers[TOOL_SWITCH_TIMER].activate()
-                self.selected_tool = self.tools.get_next()
+    def tool(self, action):
+        ## Use Tool
+        if action == USE:
+            self.timers[TOOL_USE_TIMER].activate()
+            self.direction = pygame.math.Vector2()  # Stops the player movement in a direction
+            self.frame_index = 0
+        elif action == SWITCH:
+            self.timers[TOOL_SWITCH_TIMER].activate()
+            self.selected_tool = self.tools.get_next()
+
+    def seed(self, action):
+        if action == USE:
+            self.timers[SEED_USE_TIMER].activate()
+            self.direction = pygame.math.Vector2()  # Stops the player movement in a direction
+            self.frame_index = 0
+        elif action == SWITCH:
+            self.timers[SEED_SWITCH_TIMER].activate()
+            self.selected_seed = self.seeds.get_next()
+
 
 
     def move(self, dt):
@@ -106,7 +129,7 @@ class Player(pygame.sprite.Sprite):
             self.status = self.status.split('_')[0] + self.selected_tool
 
     def use_tool(self):
-        print("")
+        var = None
 
     def update_timers(self):
         for timer in self.timers.values():

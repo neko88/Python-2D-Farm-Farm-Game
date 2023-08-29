@@ -14,8 +14,7 @@ class Level:
         self.player = Player((SCREEN_WIDTH//2,SCREEN_HEIGHT//2), self.all_sprites)
 
         ### DELETE BELOW
-        bg_path = 'assets/s1 - setup/graphics/world/ground.png'
-        bg_image = pygame.image.load(bg_path).convert_alpha()
+        bg_image = pygame.image.load(BG_PATH).convert_alpha()
         self.surf = pygame.Surface.convert_alpha(bg_image)
         self.surf = pygame.transform.scale(self.surf, (self.surf.get_width()//2,self.surf.get_height()//2)).convert_alpha()
 

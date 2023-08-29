@@ -3,20 +3,32 @@ SCREEN_HEIGHT = 500
 
 PLAYER_SPEED = 200
 
+CHARACTER_PATH = 'assets/graphics/character/'
+TOOL_PATH = 'assets/graphics/overlay/tool/'
+SEED_PATH = 'assets/graphics/overlay/seed/'
+BG_PATH = 'assets/graphics/world/ground.png'
+
 UP = 'up'
 DOWN = 'down'
 LEFT = 'left'
 RIGHT = 'right'
-
 IDLE = '_idle'
+
+USE = 'use'
+SWITCH = 'switch'
+
 HOE = '_hoe'
 AXE = '_axe'
 WATER = '_water'
+TOOLS = {HOE, AXE, WATER}
 
-TOOLS = 'tool'
-TOOL_LIST = {WATER, AXE, HOE}
-TOOL_USE_TIMER = 'tool use'
-TOOL_SWITCH_TIMER = 'tool switch'
+TOOL_USE_TIMER = 'tool use timer'
+TOOL_SWITCH_TIMER = 'tool switch timer'
 
-SEEDS = 'seeds'
-SEED_LIST = []
+CORN = 'corn'
+TOMATO = 'tomato'
+
+SEEDS = {CORN, TOMATO}
+
+SEED_USE_TIMER = 'seed use timer'
+SEED_SWITCH_TIMER = 'seed switch timer'

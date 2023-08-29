@@ -1,5 +1,8 @@
 import pygame
-
+from settings import *
+from constants import *
+from support import *
+from item import *
 
 class Timer:
     def __init__(self, duration, func = None):
