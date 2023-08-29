@@ -1,10 +1,7 @@
 import pygame, sys
 from settings import *
 from level import Level
-from constants import *
-
-SCREEN_WIDTH = 1080
-SCREEN_HEIGHT = 600
+from settings import *
 
 class Game:
     def __init__(self):

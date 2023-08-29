@@ -1,31 +1,38 @@
 import pygame
 from settings import *
 from player import Player
-from constants import *
+from settings import *
 from overlay import *
+from sprites import Sprite
 
 
 class Level:
     def __init__(self):
         self.display_surface = pygame.display.get_surface()
-        self.all_sprites = pygame.sprite.Group()
+        self.all_sprites = CameraGroup()
         self.setup()
         self.overlay = Overlay(self.player)
 
     def setup(self):
-        self.player = Player((SCREEN_WIDTH//2,SCREEN_HEIGHT//2), self.all_sprites)
+        Sprite(
+            pos=(0, 0),
+            surf=pygame.image.load(BG_PATH).convert_alpha(),
+            groups=self.all_sprites)
 
-        ### DELETE BELOW
-        bg_image = pygame.image.load(BG_PATH).convert_alpha()
-        self.surf = pygame.Surface.convert_alpha(bg_image)
-        self.surf = pygame.transform.scale(self.surf, (self.surf.get_width()//2,self.surf.get_height()//2)).convert_alpha()
+        self.player = Player((SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2), self.all_sprites)
 
-    def run(self,dt):
-        #DELETE:
-        self.display_surface.blit(self.surf,(0,0))
-
-       #self.display_surface.fill('black')
-        self.all_sprites.draw(self.display_surface)
-        self.all_sprites.update(dt)
-
+    def run(self, dt):
+        # DELETE:
+        self.all_sprites.draw()
+        self.all_sprites.update(dt)  ## From pygame.sprite
         self.overlay.display()
+
+
+class CameraGroup(pygame.sprite.Group):
+    def __init__(self):
+        super().__init__()
+        self.display_surface = pygame.display.get_surface()
+
+    def draw(self):
+        for sprite in self.sprites():
+            self.display_surface.blit(sprite.image, sprite.rect)

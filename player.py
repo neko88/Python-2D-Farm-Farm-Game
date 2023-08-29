@@ -1,6 +1,6 @@
 import pygame
 from settings import *
-from constants import *
+from settings import *
 from support import *
 from timer import *
 from item import *
@@ -33,7 +33,7 @@ class Player(pygame.sprite.Sprite):
         ## Tools
         self.tools = Item(TOOLS)
         self.selected_tool = self.tools.get(WATER)
-
+        ## Seeds
         self.seeds = Item(SEEDS)
         self.selected_seed = self.seeds.get(CORN)
 

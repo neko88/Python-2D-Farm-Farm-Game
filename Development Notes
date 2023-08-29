@@ -88,4 +88,15 @@ SWITCHING TOOLS:
     - if a key is pressed, and the tool switch timer is not active, switch
         - this is for indexing the tool list, if it is active, it will stop at the item's index
 
-         f'{tool.split("_")[1]}' +
+
+----- Overlay.py ------
+    - Overlay for items
+    - Import image files for items by pygame.load.image()
+    - Selection of surface based on player's current item selected
+    - Get the rect of the selected surface, add its position for the window
+    - Draw it by pygame.display.get_surface().blit(surface, rect)
+
+------ Level.py ------
+    - Create a camera group for all_sprites -> ..= CameraGroup()
+    - Create a dictionary of 'Layers' for the object placement on the screen
+    - Each sprite needs to be assigned a layer

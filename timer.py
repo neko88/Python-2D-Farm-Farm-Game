@@ -1,6 +1,6 @@
 import pygame
 from settings import *
-from constants import *
+from settings import *
 from support import *
 from item import *
 
