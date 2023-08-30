@@ -99,4 +99,15 @@ SWITCHING TOOLS:
 ------ Level.py ------
     - Create a camera group for all_sprites -> ..= CameraGroup()
     - Create a dictionary of 'Layers' for the object placement on the screen
-    - Each sprite needs to be assigned a layer
+    - Each sprite needs to be assigned a layer - which is its z-axis
+
+CAMERA ON PLAYER
+    - The map moves opposite x and y from the player's movement.
+    - First get the offset of the player relative to the screen
+        - The screen is /2 because the player's center is moving on one of the axis half
+    - The movement is by setting the overlay/images center rect WRT offset of the player
+
+    - Set layer visibility by the draw function, if sprite's z value is a certain layer, display in that order
+    - Each tile in the tmx_data layer is its own object and a certain position
+    - To make the player be on top / bottom of an item, need the sprite/objects centery.
+        - Each frame sorts the center.y which reflects on what is on top

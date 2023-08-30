@@ -1,12 +1,15 @@
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
+TILE_SIZE = 64
 
-PLAYER_SPEED = 200
+PLAYER_SPEED = 500
 
 CHARACTER_PATH = 'assets/graphics/character/'
 TOOL_PATH = 'assets/graphics/overlay/tool/'
 SEED_PATH = 'assets/graphics/overlay/seed/'
 BG_PATH = 'assets/graphics/world/ground.png'
+MAP_PATH = 'assets/data/map.tmx'
+WATER_PATH = 'assets/graphics/water/'
 
 UP = 'up'
 DOWN = 'down'
