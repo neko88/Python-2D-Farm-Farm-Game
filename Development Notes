@@ -111,3 +111,21 @@ CAMERA ON PLAYER
     - Each tile in the tmx_data layer is its own object and a certain position
     - To make the player be on top / bottom of an item, need the sprite/objects centery.
         - Each frame sorts the center.y which reflects on what is on top
+
+
+COLLISION - HIT BOXES
+    - Hit box refer to the image rectangle
+    - the hit box make the object collision (like behind or front) respond better to the player
+    rather than with the size of the object itself
+    - A group 'collision_sprites' is craeted to track the collidable objects
+    - In player, collision function will be running
+
+    PLAYER
+    collision function
+        - loop through to see if self has collided with an obj in collision_sprites
+        - check if self hitbox and obj hitbox collided with colliderect()
+        - movement:
+            - if player was moving right : self hitbox right = sprite hitbox left
+                ie. the player's right side has collided with the obj's left side
+
+        ** essentially an invisible "mask rect" for each sprite that is smaller than its original rect

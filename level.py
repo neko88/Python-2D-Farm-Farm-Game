@@ -9,29 +9,27 @@ from pytmx.util_pygame import load_pygame
 class Level:
     def __init__(self):
         self.all_sprites = CameraGroup()
+        self.collision_sprites = pygame.sprite.Group()
+
         self.background = None
         self.display_surface = pygame.display.get_surface()
         self.setup()
         self.overlay = Overlay(self.player)
 
     def setup(self):
-        self.player = Player((640,360), self.all_sprites)
-        self.background = Sprite(
-            position=(0,0),
-            surface=pygame.image.load(BG_PATH).convert_alpha(),
-            groups=self.all_sprites,
-            z=LAYERS['ground'])
+        self.player = Player((640, 360), self.all_sprites, self.collision_sprites)
+        self.background = Sprite((0,0), pygame.image.load(BG_PATH).convert_alpha(),self.all_sprites, z=LAYERS['ground'])
 
         self.tmx_data = load_pygame(MAP_PATH)
         self.draw_layer('layer', self.all_sprites, ['HouseFloor', 'HouseFurnitureBottom'], 'house bottom')
         self.draw_layer('layer', self.all_sprites, ['HouseWalls', 'HouseFurnitureTop'], 'main')
-        self.draw_layer('layer', self.all_sprites, ['Fence'], 'main')
+        self.draw_layer('layer', [self.all_sprites,self.collision_sprites], ['Fence'], 'main')
         self.draw_layer('water', self.all_sprites)
         self.draw_layer('decoration', self.all_sprites)
-        self.draw_layer('trees', self.all_sprites)
+        self.draw_layer('trees', [self.all_sprites, self.collision_sprites])
+
 
     def run(self, dt):
-        # DELETE:
         self.all_sprites.draw(self.player)
         self.all_sprites.update(dt)  ## From pygame.sprite
         self.overlay.display()
