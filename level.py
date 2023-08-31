@@ -17,16 +17,16 @@ class Level:
         self.overlay = Overlay(self.player)
 
     def setup(self):
-        self.player = Player((640, 360), self.all_sprites, self.collision_sprites)
         self.background = Sprite((0,0), pygame.image.load(BG_PATH).convert_alpha(),self.all_sprites, z=LAYERS['ground'])
-
         self.tmx_data = load_pygame(MAP_PATH)
-        self.draw_layer('layer', self.all_sprites, ['HouseFloor', 'HouseFurnitureBottom'], 'house bottom')
-        self.draw_layer('layer', self.all_sprites, ['HouseWalls', 'HouseFurnitureTop'], 'main')
-        self.draw_layer('layer', [self.all_sprites,self.collision_sprites], ['Fence'], 'main')
-        self.draw_layer('water', self.all_sprites)
-        self.draw_layer('decoration', self.all_sprites)
-        self.draw_layer('trees', [self.all_sprites, self.collision_sprites])
+        self.draw_layer(PLAYER, self.all_sprites, self.collision_sprites)
+        self.draw_layer(LAYER, self.all_sprites, ['HouseFloor', 'HouseFurnitureBottom'], 'house bottom')
+        self.draw_layer(LAYER, self.all_sprites, ['HouseWalls', 'HouseFurnitureTop'], 'main')
+        self.draw_layer(LAYER, [self.all_sprites, self.collision_sprites], ['Fence'], 'main')
+        self.draw_layer(WATER, self.all_sprites)
+        self.draw_layer(WILD_PLANT, self.all_sprites)
+        self.draw_layer(TREE, [self.all_sprites, self.collision_sprites])
+        self.draw_layer(COLLISION, self.collision_sprites)
 
 
     def run(self, dt):
@@ -36,24 +36,32 @@ class Level:
 
     def draw_layer(self, layer_type, group, layer_name=None, layer_category=None):
         layer_type = layer_type.lower()
-        if layer_type == 'layer':
+        if layer_type == LAYER:
             for lay_name in layer_name:
                 for x, y, surf in self.tmx_data.get_layer_by_name(lay_name).tiles():  ## get all tiles of this layer
                     Sprite((x * TILE_SIZE, y * TILE_SIZE), surf, group, LAYERS[layer_category])  # Creat
 
-        elif layer_type == 'water':
+        elif layer_type == WATER:
             water_frames = import_folder(WATER_PATH)
             for x, y, surf in self.tmx_data.get_layer_by_name('Water').tiles():  ## get all tiles of this layer
-                Water((x * TILE_SIZE, y * TILE_SIZE), water_frames, group, LAYERS['water'])
+                Water((x * TILE_SIZE, y * TILE_SIZE), water_frames, group, LAYERS[WATER])
 
-        elif layer_type == 'decoration':
+        elif layer_type == WILD_PLANT:
             for obj in self.tmx_data.get_layer_by_name('Decoration'):
                 WildFlower((obj.x, obj.y), obj.image, group)        ## Deco layer has absolute (x,y) vals
 
-        elif layer_type == 'trees':
+        elif layer_type == TREE:
             for obj in self.tmx_data.get_layer_by_name('Trees'):
                 Tree((obj.x, obj.y), obj.image, group, obj.name)    ## Tree layer has abs (x,y)
 
+        elif layer_type == PLAYER:
+            for obj in self.tmx_data.get_layer_by_name('Player'):
+                if obj.name == 'Start':
+                    self.player = Player((obj.x, obj.y), group, self.collision_sprites)
+
+        elif layer_type == COLLISION:
+            for x, y, surf in self.tmx_data.get_layer_by_name('Collision').tiles():
+                Sprite((x * TILE_SIZE, y * TILE_SIZE), pygame.Surface((TILE_SIZE, TILE_SIZE)), self.collision_sprites) ## Empty surface so that it is invisible on screen
 
 ## CameraGroup is pygame sprite class ***
 class CameraGroup(pygame.sprite.Group):

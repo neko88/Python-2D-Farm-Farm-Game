@@ -129,3 +129,8 @@ COLLISION - HIT BOXES
                 ie. the player's right side has collided with the obj's left side
 
         ** essentially an invisible "mask rect" for each sprite that is smaller than its original rect
+
+
+GROUPS
+    - To work around groups: obj.groups() = list of groups its part of [ g1, g2 ,...]
+    - To access one group from the obj's group: obj.groups()[0]

@@ -3,6 +3,7 @@ SCREEN_HEIGHT = 720
 TILE_SIZE = 64
 
 PLAYER_SPEED = 500
+PLAYER = 'player'
 
 CHARACTER_PATH = 'assets/graphics/character/'
 TOOL_PATH = 'assets/graphics/overlay/tool/'
@@ -10,6 +11,7 @@ SEED_PATH = 'assets/graphics/overlay/seed/'
 BG_PATH = 'assets/graphics/world/ground.png'
 MAP_PATH = 'assets/data/map.tmx'
 WATER_PATH = 'assets/graphics/water/'
+APPLES_PATH = 'assets/graphics/fruit/apple.png'
 
 UP = 'up'
 DOWN = 'down'
@@ -38,6 +40,24 @@ OVERLAY_POSITIONS = {
     'seeds': (70, SCREEN_HEIGHT - 5)
 }
 
+LAYER = 'layer'
+GROUND = 'ground'
+SOIL = 'soil'
+RAIN = 'rain'
+FLOOR = 'floor'
+FENCE = 'fence'
+HOUSE = 'house'
+BOTTOM = 'bottom'
+TOP = 'top'
+PLANT = 'plant'
+WILD_PLANT = 'wild plant'
+FRUIT = 'fruit'
+RAINDROPS = 'rain drops'
+TREE = 'tree'
+COLLISION = 'collision'
+SMALL = 'small'
+LARGE = 'large'
+
 LAYERS = {
     'water': 0,
     'ground': 1,
@@ -50,4 +70,9 @@ LAYERS = {
     'house top': 8,
     'fruit': 9,
     'rain drops': 10
+}
+## Values are (x, y) for the location on the Tree's rect, not screen
+APPLES_POS = {
+    SMALL: [ (18,17), (30,37), (12,50), (30,45), (20,30), (30,10) ],
+    LARGE: [ (30,24), (60,65), (50,50), (16,40), (45,50), (42,70) ]
 }

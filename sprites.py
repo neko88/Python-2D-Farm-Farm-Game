@@ -1,6 +1,7 @@
 import pygame
 from settings import *
 from pytmx.util_pygame import load_pygame
+from random import randint
 
 
 class Sprite(pygame.sprite.Sprite):
@@ -42,3 +43,14 @@ class Tree(Sprite):
     def __init__(self, position, surface, groups, name):
         super().__init__(position, surface, groups)
         # inherits the hitbox from Srite
+
+        self.apples_surf = pygame.image.load(APPLES_PATH)
+        self.apple_pos = APPLES_POS[name]
+        self.apple_sprites = pygame.sprite.Group()
+
+    def create_fruit(self):
+        for pos in self.apple_pos:
+            if randint(0, 10) < 2:
+                x = self.rect.left + pos[0]  # left side of tree + apple position x
+                y = self.rect.top + pos[1]   # top side of tree + apple position y
+                Sprite((x, y), self.apples_surf, [self.apple_sprites, self.groups()[0]])    ## all the groups that the tree sprite is in, pick the first group index (all_sprites)
